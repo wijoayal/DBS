@@ -56,57 +56,86 @@ def add_trabajo():
   mycursor.execute(val)
   print('Cliente agregado exitosamente')
 
+def show_trabajador():  
+  mycursor = mydb.cursor()
+  print("Mostrando datos de trabajadores:\n")
+  mycursor.execute("SELECT * FROM trabajador")
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  print()
 
-mycursor = mydb.cursor()
-print("Informacion de los trabajadores:\n")
-mycursor.execute("SELECT * FROM trabajador")
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
-print()
-print("Consulta de trabajos por nombre de trabajador: ")
-nombre = input("Escriba el nombre del trabajador: ")
-val = "SELECT * FROM trabajo tr JOIN trabajador t ON t.num_cedula = tr.trabajador_num_cedula WHERE nombre = '" + nombre + "'"
-print("MOSTRANDO LOS TRABAJOS DE "+nombre)
-mycursor.execute(val)
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
+def show_trabajo():  
+  mycursor = mydb.cursor()
+  print("Mostrando datos de trabajo:\n")
+  mycursor.execute("SELECT * FROM trabajo")
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  print()
 
-print()
-print("Consulta total de pagos realizado a trabajador: ")
-data = input("Escriba el nombre del trabajador: ")
-val = "SELECT nombre, SUM(pago) AS total FROM trabajo tr JOIN trabajador t ON t.num_cedula = tr.trabajador_num_cedula WHERE nombre = '"+ data + "'"
-print("MOSTRANDO LOS PAGOS REALIZADOS A "+data)
-mycursor.execute(val)
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
+def show_descuento():  
+  mycursor = mydb.cursor()
+  print("Mostrando datos de promociones:\n")
+  mycursor.execute("SELECT * FROM descuento")
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  print()
 
-print()
-print("Consulta de clientes frecuentes (Muestra en orden descendente la cantidad de trabajos que han contratado los clientes ")
-val = "SELECT nombre, num_cedula, COUNT(*) AS total FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula GROUP BY c.num_cedula ORDER BY COUNT(*) DESC"
-mycursor.execute(val)
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
+def show_cliente():  
+  mycursor = mydb.cursor()
+  print("Mostrando datos de cliente:\n")
+  mycursor.execute("SELECT * FROM cliente")
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+  print()
+  
+def query_trabajosNombreTrabajador():
+  print("Consulta de trabajos por nombre de trabajador: ")
+  nombre = input("Escriba el nombre del trabajador: ")
+  val = "SELECT * FROM trabajo tr JOIN trabajador t ON t.num_cedula = tr.trabajador_num_cedula WHERE nombre = '" + nombre + "'"
+  print("MOSTRANDO LOS TRABAJOS DE "+nombre)
+  mycursor.execute(val)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
 
-print()
-print("Consulta de nombres de cliente por numero de cedula: ")
-data = input("Escriba el numero de cedula del cliente: ")
-val = "SELECT nombre, num_cedula FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula WHERE num_cedula = '"+ data + "'"
-print("MOSTRANDO NOMBRE DE CLIENTE CON NUMERO DE CEDULA "+data)
-mycursor.execute(val)
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
+def query_totalPagosTrabajador():
+  print("Consulta total de pagos realizado a trabajador: ")
+  data = input("Escriba el nombre del trabajador: ")
+  val = "SELECT nombre, SUM(pago) AS total FROM trabajo tr JOIN trabajador t ON t.num_cedula = tr.trabajador_num_cedula WHERE nombre = '"+ data + "'"
+  print("MOSTRANDO LOS PAGOS REALIZADOS A "+data)
+  mycursor.execute(val)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
 
-print()
-print("Consulta de pagos de cada cliente por monto: ")
-data = input("Escriba el monto minimo: $ ")
-val = "SELECT num_factura, nombre, SUM(pago) FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula GROUP BY nombre HAVING SUM(pago)> "+ data
-print("MOSTRANDO LOS PAGOS REALIZADOS DE MAS DE "+data+ "DOLARES")
-mycursor.execute(val)
-myresult = mycursor.fetchall()
-for x in myresult:
-  print(x)
+def query_clientesFrecuentes():
+  print("Consulta de clientes frecuentes (Muestra en orden descendente la cantidad de trabajos que han contratado los clientes ")
+  val = "SELECT nombre, num_cedula, COUNT(*) AS total FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula GROUP BY c.num_cedula ORDER BY COUNT(*) DESC"
+  mycursor.execute(val)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+
+def query_nombreClienteCedula():
+  print("Consulta de nombres de cliente por numero de cedula: ")
+  data = input("Escriba el numero de cedula del cliente: ")
+  val = "SELECT nombre, num_cedula FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula WHERE num_cedula = '"+ data + "'"
+  print("MOSTRANDO NOMBRE DE CLIENTE CON NUMERO DE CEDULA "+data)
+  mycursor.execute(val)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
+
+def query_pagosClienteMontoMinimo():
+  print("Consulta de pagos de cada cliente por monto: ")
+  data = input("Escriba el monto minimo: $ ")
+  val = "SELECT num_factura, nombre, SUM(pago) FROM trabajo tr JOIN cliente c ON c.num_cedula = tr.cliente_num_cedula GROUP BY nombre HAVING SUM(pago)> "+ data
+  print("MOSTRANDO LOS PAGOS REALIZADOS DE MAS DE "+data+ "DOLARES")
+  mycursor.execute(val)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)

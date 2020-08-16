@@ -1,11 +1,12 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="root",
-  database="project"
-)
+def connect():
+  mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="project"
+  )
 
 def add_cliente():
   mycursor = mydb.cursor()

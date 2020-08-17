@@ -1,5 +1,9 @@
 import os
 import functions
+import mysql.connector
+
+mydb = functions.connect()
+
 def menu():
 	
 	os.system('cls')
@@ -58,16 +62,16 @@ while True:
 		menuc()
 		if opcionMenu=="1":
 			print ("")
-			add_cliente()
+			functions.add_cliente(mydb)
 		elif opcionMenu=="2":
 			print ("")
-			add_promocion()
+			functions.add_promocion(mydb)
 		elif opcionMenu=="3":
 			print ("")
 			#modificar
 		elif opcionMenu=="4":
 			print ("")
-			show_cliente()
+			functions.show_cliente(mydb)
 		elif opcionMenu=="5":
 			break
 		else:
@@ -78,16 +82,16 @@ while True:
 		menut()
 		if opcionMenu=="1":
 			print ("")
-			add_trabajador()
+			functions.add_trabajador(mydb)
 		elif opcionMenu=="2":
 			print ("")
 			#modificar
 		elif opcionMenu=="3":
 			print ("")
-			show_trabajador()
+			functions.show_trabajador(mydb)
 		elif opcionMenu=="4":
 			print ("")
-			show_descuento()
+			functions.show_descuento(mydb)
 		elif opcionMenu=="5":
 			break
 		else:
@@ -98,10 +102,10 @@ while True:
 		menutra()
 		if opcionMenu=="1":
 			print ("")
-			add_trabajo()
+			functions.add_trabajo(mydb)
 		elif opcionMenu=="2":
 			print ("")
-			show_trabajo()
+			functions.show_trabajo(mydb)
 		elif opcionMenu=="3":
 			break
 		else:
@@ -112,19 +116,19 @@ while True:
 		menucon()
 		if opcionMenu=="1":
 			print ("")
-			query_trabajosNombreTrabajador()
+			functions.query_trabajosNombreTrabajador(mydb)
 		elif opcionMenu=="2":
 			print ("")
-			query_totalPagosTrabajador()
+			functions.query_totalPagosTrabajador(mydb)
 		elif opcionMenu=="3":
 			print ("")
-			query_clientesFrecuentes()
+			functions.query_clientesFrecuentes(mydb)
 		elif opcionMenu=="4":
 			print ("")
-			query_nombreClienteCedula()
+			functions.query_nombreClienteCedula(mydb)
 		elif opcionMenu=="5":
 			print ("")
-			query_pagosClienteMontoMinimo()
+			functions.query_pagosClienteMontoMinimo(mydb)
 		elif opcionMenu=="6":
 			break
 		else:
